@@ -1,7 +1,7 @@
 # From: http://mgdm.net/weblog/zsh-antigen/
 ZSHA_BASE=$HOME/.zsh-antigen
 source $ZSHA_BASE/antigen/antigen.zsh
-source  $HOME/.bash_aliases
+source  $HOME/.aliases
 
 antigen-use oh-my-zsh
 antigen-bundle git
