@@ -18,6 +18,7 @@ antigen-bundle history
 antigen-bundle mvn 
 antigen-bundle vagrant
 antigen-bundle avakhov/vim-yaml 
+antigen-bundle chase/vim-ansible-yaml 
 antigen-bundle scrooloose/syntastic 
 antigen-bundle tpope/vim-sensible 
 
