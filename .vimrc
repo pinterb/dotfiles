@@ -1,5 +1,5 @@
 " Use the Molokai theme (originally created for TextMate by Wimer Hazenberg)
-colorscheme molokai
+" colorscheme molokai
 
 " Make Vim more useful
 set nocompatible
@@ -44,8 +44,8 @@ set cursorline
 " Make tabs as wide as two spaces
 set tabstop=2
 " Show “invisible” characters
-set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-set list
+" set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+" set list
 " Highlight searches
 set hlsearch
 " Ignore case of searches
@@ -94,6 +94,20 @@ noremap <leader>W :w !sudo tee % > /dev/null<CR>
 if has("autocmd")
 	" Enable file type detection
 	filetype on
+  filetype plugin indent on
+
+  " Set tabbing options
+  autocmd FileType ruby,yaml setlocal expandtab autoindent shiftwidth=2 softtabstop=2
+
+  " Trim trailing whitespace from Ruby and Yaml files
+  autocmd BufWritePre *.rb,*.yml,*.yaml :%s/\s\+$//e
+
+  " flag problematic whitespace (trailing and spaces before tabs)
+  " Note you get the same by doing let c_space_errors=1 but
+  " this rule really applies to everything.
+  highlight RedundantSpaces term=standout ctermbg=red guibg=red
+  match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
+
 	" Treat .json files as .js
 	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 endif
