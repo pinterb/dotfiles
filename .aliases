@@ -154,5 +154,5 @@ alias reload="exec $SHELL -l"
 command -v npm > /dev/null && alias npme="npm --registry http://registry.npmjs.eu"
 
 # Refresh Ansible
-alias ai="cd ~/projects/github/ansible; git pull; source ./hacking/env-setup; ansible --version; cd -"
+alias ai="cd ~/.ansible; git pull; source ./hacking/env-setup; ansible --version; cd -"
 
