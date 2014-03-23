@@ -23,16 +23,32 @@ function doAnsible() {
   fi
 }
 
+# Make sure GVM (the Groovy enVironment Manager) is installed
+function doGvm() {
+  echo ""
+  echo "Set up GVM"
+  echo ""
+  if [ -d ~/.gvm ]; then
+	  cd ~/.gvm; gvm selfupdate; cd -
+  else
+    curl -s get.gvmtool.net | bash
+  fi
+}
+
+
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
 	doIt
 	doAnsible
+	goGvm
 else
 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt
 	  doAnsible
+	  doGvm
 	fi
 fi
 unset doIt
 unset doAnsible
+unset doGvm
