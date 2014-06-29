@@ -156,3 +156,5 @@ command -v npm > /dev/null && alias npme="npm --registry http://registry.npmjs.e
 # Refresh Ansible
 alias ai="cd ~/.ansible; git pull; source ./hacking/env-setup; ansible --version; cd -"
 
+# Enable ack
+alias afind='ack-grep -il'
