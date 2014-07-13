@@ -1,113 +1,101 @@
-" Use the Molokai theme (originally created for TextMate by Wimer Hazenberg)
-" colorscheme molokai
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Make Vim more useful
-set nocompatible
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-" Enhance command-line completion
-set wildmenu
-" Allow cursor keys in insert mode
-set esckeys
-" Allow backspace in insert mode
-set backspace=indent,eol,start
-" Optimize for fast terminal connections
-set ttyfast
-" Add the g flag to search/replace by default
-set gdefault
-" Use UTF-8 without BOM
-set encoding=utf-8 nobomb
-" Change mapleader
-let mapleader=","
-" Don’t add empty newlines at the end of files
-set binary
-set noeol
-" Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-if exists("&undodir")
-	set undodir=~/.vim/undo
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Markdown
+Plugin 'plasticboy/vim-markdown'
+
+" Go development plugin for Vim
+Plugin 'fatih/vim-go'
+
+Plugin 'elzr/vim-json'
+
+Bundle 'chase/vim-ansible-yaml'
+
+Bundle 'scrooloose/nerdtree'
+
+Bundle 'nanotech/jellybeans.vim'
+
+Bundle 'kien/ctrlp.vim'
+
+let s:python_ver = 0
+silent! python import sys, vim;
+\ vim.command("let s:python_ver="+"".join(map(str,sys.version_info[0:3])))
+
+" Python plugin bundles
+if (has('python') || has('python3')) && s:python_ver >= 260
+  Bundle 'SirVer/ultisnips'
+else
+  Bundle 'garbas/vim-snipmate'
 endif
 
-" Respect modeline in files
-set modeline
-set modelines=4
-" Enable per-directory .vimrc files and disable unsafe commands in them
-set exrc
-set secure
-" Enable line numbers
-set number
-" Enable syntax highlighting
-syntax on
+Bundle 'klen/python-mode'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+Plugin 'tpope/vim-cucumber'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" from http://c7.se/switching-to-vundle/
+let mapleader=","
+
+"color jellybeans
+
 " Highlight current line
 set cursorline
+
 " Make tabs as wide as two spaces
 set tabstop=2
-" Show “invisible” characters
-" set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-" set list
-" Highlight searches
-set hlsearch
-" Ignore case of searches
-set ignorecase
-" Highlight dynamically as pattern is typed
-set incsearch
-" Always show status line
-set laststatus=2
-" Enable mouse in all modes
-set mouse=a
-" Disable error bells
-set noerrorbells
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-" Show the cursor position
-set ruler
-" Don’t show the intro message when starting Vim
-set shortmess=atI
-" Show the current mode
-set showmode
-" Show the filename in the window titlebar
-set title
-" Show the (partial) command as it’s being typed
-set showcmd
-" Use relative line numbers
-if exists("&relativenumber")
-	set relativenumber
-	au BufReadPost * set relativenumber
-endif
-" Start scrolling three lines before the horizontal window border
-set scrolloff=3
 
-" Strip trailing whitespace (,ss)
-function! StripWhitespace()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	:%s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfunction
-noremap <leader>ss :call StripWhitespace()<CR>
-" Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+" Use UTF-8 without BOM
+set encoding=utf-8 nobomb
 
-" Automatic commands
-if has("autocmd")
-	" Enable file type detection
-	filetype on
-  filetype plugin indent on
+" Allow backspace in insert mode
+set backspace=indent,eol,start
 
-  " Set tabbing options
-  autocmd FileType ruby,yaml setlocal expandtab autoindent shiftwidth=2 softtabstop=2
+" Optimize for fast terminal connections
+set ttyfast
 
-  " Trim trailing whitespace from Ruby and Yaml files
-  autocmd BufWritePre *.rb,*.yml,*.yaml :%s/\s\+$//e
+" Automatic formatting
+autocmd BufWritePre *.rb :%s/\s\+$//e
+autocmd BufWritePre *.go :%s/\s\+$//e
+autocmd BufWritePre *.yml :%s/\s\+$//e
+autocmd BufWritePre *.yaml :%s/\s\+$//e
+autocmd BufWritePre *.haml :%s/\s\+$//e
+autocmd BufWritePre *.html :%s/\s\+$//e
+autocmd BufWritePre *.scss :%s/\s\+$//e
+autocmd BufWritePre *.slim :%s/\s\+$//e
 
-  " flag problematic whitespace (trailing and spaces before tabs)
-  " Note you get the same by doing let c_space_errors=1 but
-  " this rule really applies to everything.
-  highlight RedundantSpaces term=standout ctermbg=red guibg=red
-  match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
+" Set tabbing options
+autocmd FileType ruby,yaml setlocal expandtab autoindent shiftwidth=2 softtabstop=2
 
-	" Treat .json files as .js
-	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-endif
+au BufNewFile * set noeol
+
+" NERDTree
+nmap <leader>n :NERDTreeToggle<CR>
+let NERDTreeHighlightCursorline=1
+let NERDTreeIgnore = ['tmp', '.yardoc', 'pkg']
+
