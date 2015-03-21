@@ -2,7 +2,9 @@
 cd "$(dirname "${BASH_SOURCE}")"
 git pull origin master
 git submodule update --init --recursive
-function doIt() {
+
+doIt()
+{
   echo ""
   echo "Syncing dot files"
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
@@ -12,7 +14,8 @@ function doIt() {
 }
 
 # Make sure Ansible is installed
-function doAnsible() {
+doAnsible()
+{
   echo ""
   echo "Set up Ansible"
   echo ""
@@ -24,7 +27,8 @@ function doAnsible() {
 }
 
 # Make sure GVM (the Groovy enVironment Manager) is installed
-function doGvm() {
+doGvm()
+{
   echo ""
   echo "Set up GVM"
   echo ""
