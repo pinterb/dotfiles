@@ -157,7 +157,8 @@ else
     let macvim_skip_colorscheme=1
     let g:molokai_original=1
 "    colorscheme molokai
-    colorscheme developer 
+"    colorscheme developer 
+    colorscheme peaksea 
 "    colorscheme nightsky
 "    colorscheme pacific 
     highlight SignColumn guibg=#272822
