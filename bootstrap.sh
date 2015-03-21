@@ -19,10 +19,13 @@ doAnsible()
   echo ""
   echo "Set up Ansible"
   echo ""
-  if [ -d ~/.ansible ]; then
-	  cd ~/.ansible; git pull; source ./hacking/env-setup; cd -
-  else
-    git clone https://github.com/ansible/ansible.git ~/.ansible; cd ~/.ansible; source ./hacking/env-setup; cd -
+  local python-cmd=`which python`
+  if [ -n "${python-cmd}" ]; then
+    if [ -d ~/.ansible ]; then
+      cd ~/.ansible; git pull; source ./hacking/env-setup; cd -
+    else
+      git clone https://github.com/ansible/ansible.git ~/.ansible; cd ~/.ansible; source ./hacking/env-setup; cd -
+    fi
   fi
 }
 
@@ -48,7 +51,7 @@ else
 	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 	echo
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		doIt
+          doIt
 	  doAnsible
 	  doGvm
 	fi
