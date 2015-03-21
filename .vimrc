@@ -158,7 +158,7 @@ else
     let g:molokai_original=1
 "    colorscheme molokai
     colorscheme developer 
-    colorscheme jellybeans 
+"    colorscheme jellybeans 
 "    colorscheme peaksea 
 "    colorscheme nightsky
 "    colorscheme pacific 
