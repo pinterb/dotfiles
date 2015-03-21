@@ -7,9 +7,10 @@ doIt()
 {
   echo ""
   echo "Syncing dot files"
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
-		--exclude "README.md" --exclude "LICENSE-MIT.txt" -av --no-perms . ~
-	source ~/.bash_profile
+  rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
+	--exclude "README.md" --exclude "LICENSE-MIT.txt" -av --no-perms . ~
+  cd ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git && cd -
+  source ~/.bash_profile
   echo ""
 }
 
