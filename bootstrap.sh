@@ -20,12 +20,10 @@ doAnsible()
   echo "Set up Ansible"
   echo ""
   local python-cmd=`which python`
-  if [ -n "${python-cmd}" ]; then
-    if [ -d ~/.ansible ]; then
-      cd ~/.ansible; git pull; git submodule update --init; cd -
-    else
-      git clone https://github.com/ansible/ansible.git ~/.ansible; cd ~/.ansible; git submodule update --init; cd -
-    fi
+  if [ -d ~/.ansible ]; then
+    cd ~/.ansible; git pull; git submodule update --init; cd -
+  else
+    git clone https://github.com/ansible/ansible.git ~/.ansible; cd ~/.ansible; git submodule update --init; cd -
   fi
 }
 
