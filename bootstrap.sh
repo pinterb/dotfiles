@@ -19,7 +19,6 @@ doAnsible()
   echo ""
   echo "Set up Ansible"
   echo ""
-  local python-cmd=`which python`
   if [ -d ~/.ansible ]; then
     cd ~/.ansible; git pull; git submodule update --init; cd -
   else
