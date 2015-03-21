@@ -9,6 +9,12 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 done
 unset file
 
+# Ode to boot2docker 
+extra_extra_file=${BLACKBOX_KEYS_DIR:-"/home/dev/.devconfig/gnupg"}
+if [ -f "$extra_extra_file" ]; then
+  source "${extra_extra_file}"
+fi
+
 SHOPT_BIN=`which shopt`
 if [ -n "$SHOPT_BIN" ]; then
   # Case-insensitive globbing (used in pathname expansion)
