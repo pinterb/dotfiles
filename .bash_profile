@@ -37,3 +37,41 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 
 # If possible, add tab completion for many more commands
 [ -f /etc/bash_completion ] && source /etc/bash_completion
+
+# Update $GOPATH (with my personal projects directory)
+my_go_home=${GO_PROJECTS_DIR:-"/var/shared/projects/go"}
+
+if [ -d "${my_go_home}" ]; then
+  export GOPATH="${my_go_home}":$GOPATH
+  export PATH="${my_go_home}"/bin:$PATH
+fi
+
+#export PS1='$(whoami)@$(hostname):$(pwd)$ '
+
+if test -f $HOME/.gpg-agent-info && kill -0 `cut -d: -f 2 $HOME/.gpg-agent-info` 2>/dev/null; then
+  GPG_AGENT_INFO=`cat $HOME/.gpg-agent-info`
+  export GPG_AGENT_INFO
+else
+  eval `gpg-agent --daemon`
+  echo $GPG_AGENT_INFO >$HOME/.gpg-agent-info
+fi
+
+# see https://github.com/StackExchange/blackbox
+blackbox_keys_dir=${BLACKBOX_KEYS_DIR:-"/home/dev/.devconfig/gnupg"}
+if [ -d "$blackbox_keys_dir" ]; then
+  gpg_ownertrust_backup=$(find $blackbox_keys_dir -type f | grep -m 1 ownertrust-gpg)
+  if [ -n "$gpg_ownertrust_backup" ]; then
+    gpg --import-ownertrust $gpg_ownertrust_backup
+  fi
+
+  gpg_private_backup=$(find $blackbox_keys_dir -type f | grep -m 1 private-gpg)
+  if [ -n "$gpg_private_backup" ]; then
+    gpg --import $gpg_private_backup
+  fi
+
+  gpg_public_backup=$(find $blackbox_keys_dir -type f -printf %f | grep -m 1 public-gpg)
+fi
+
+if [ -z "$BLACKBOX_USER" ]; then
+  export BLACKBOX_USER=$(git config --get user.email)
+fi
