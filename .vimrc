@@ -4,7 +4,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-"Plugin 'tpope/vim-fugitive'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'fatih/vim-go' 
@@ -79,7 +78,7 @@ set nocursorline
 syntax sync minlines=256
 set re=1
 
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 if has("gui_running")
     " No toolbars, menu or scrollbars in the GUI
@@ -384,13 +383,6 @@ let g:delimitMate_expand_space = 1
 
 " ==================== GoldenView ====================
 let g:goldenview__enable_default_mapping = 0
-
-
-" ==================== Fugitive ====================
-nnoremap <leader>ga :Git add %:p<CR><CR>
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gb :Gblame<CR>
-vnoremap <leader>gb :Gblame<CR>
 
 
 " ==================== Airline ====================
