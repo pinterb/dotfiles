@@ -2,6 +2,7 @@
 
 readonly SCRIPT=$(readlink -f "$0")
 readonly SCRIPT_PATH=$(dirname "$SCRIPT")
+echo "me: ${0}"
 echo "script path: ${SCRIPT_PATH}"
 cd "${SCRIPT_PATH}"
 
