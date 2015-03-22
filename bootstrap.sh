@@ -16,6 +16,7 @@ usage()
   echo "\t\033[33m-h --help"
   echo "\t\033[33m-a --ansible   Install Ansible configuration management."
   echo "\t\033[33m-g --gvm       Install Groovy Environment Manager."
+  echo "\t\033[33m-y --ycm       Compile YouCompleteMe vim plugin."
   echo "\t\033[33m-f --force     Force overwrite of existing files in your home directory."
   echo "\033[0m"
 }
@@ -36,6 +37,9 @@ parse_args()
         ;;
       -g | --gvm)
         INSTALL_GVM=$TRUE
+        ;;
+      -y | --ycm)
+        INSTALL_YCM=$TRUE
         ;;
       -f | --force)
         FORCE_UPDATES=$TRUE
@@ -71,6 +75,16 @@ doIt()
 	--exclude "README.md" --exclude "LICENSE-MIT.txt" -av --no-perms . ~
   cd ~/.vim/bundle && git clone https://github.com/gmarik/Vundle.vim.git && cd -
   . ~/.bash_profile
+  echo ""
+}
+
+
+doYCM()
+{
+  echo ""
+  echo "Compile YouCompleteMe"
+  cd ~/.vim/bundle && git clone https://github.com/Valloric/YouCompleteMe.git
+  cd YouCompleteMe && git submodule --init --recursive && ./install.sh --clang-completer
   echo ""
 }
 
@@ -141,6 +155,10 @@ main()
       if [ -n "$INSTALL_GVM" ]; then
         doGvm 
       fi
+    
+      if [ -n "$INSTALL_YCM" ]; then
+        doYCM 
+      fi
 
     fi
   
@@ -153,6 +171,10 @@ main()
     
     if [ -n "$INSTALL_GVM" ]; then
       doGvm 
+    fi
+    
+    if [ -n "$INSTALL_YCM" ]; then
+      doYCM 
     fi
 
   fi
