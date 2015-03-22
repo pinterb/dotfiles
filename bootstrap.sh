@@ -1,5 +1,9 @@
-#!/usr/bin/env bash
-cd "$(dirname "${BASH_SOURCE}")"
+#!/bin/sh
+
+readonly PROGNAME=$(basename $0)
+readonly PROGDIR="$( cd "$(dirname "$0")" ; pwd -P )"
+cd "$(PROGDIR)"
+
 git pull origin master
 git submodule update --init --recursive
 
