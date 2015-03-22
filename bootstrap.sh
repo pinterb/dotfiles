@@ -85,7 +85,7 @@ doYCM()
   echo "Compile YouCompleteMe"
   cd ~/.vim/bundle && git clone https://github.com/Valloric/YouCompleteMe.git
   cd YouCompleteMe
-  git submodule --init --recursive
+  git submodule update --init --recursive
   ./install.sh --clang-completer
   echo ""
 }
