@@ -1,10 +1,10 @@
 #!/bin/sh
 
-readonly SCRIPT=$(readlink -f "$1")
-readonly SCRIPT_PATH=$(dirname "$SCRIPT")
-echo "me: ${1}"
-echo "script path: ${SCRIPT_PATH}"
-cd "${SCRIPT_PATH}"
+#readonly SCRIPT=$(readlink -f "$(1)")
+#readonly SCRIPT_PATH=$(dirname "$SCRIPT")
+#echo "me: ${1}"
+#echo "script path: ${SCRIPT_PATH}"
+#cd "${SCRIPT_PATH}"
 
 git pull origin master
 git submodule update --init --recursive
