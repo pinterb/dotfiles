@@ -1,9 +1,9 @@
 #!/bin/sh
 
-readonly PROGNAME=$(basename $0)
-readonly PROGDIR="$( cd "$(dirname "$0")" ; pwd -P )"
-echo "${PROGDIR}"
-cd "${PROGDIR}"
+readonly SCRIPT=$(readlink -f "$0")
+readonly SCRIPT_PATH=$(dirname "$SCRIPT")
+echo "script path: ${SCRIPT_PATH}"
+cd "${SCRIPT_PATH}"
 
 git pull origin master
 git submodule update --init --recursive
