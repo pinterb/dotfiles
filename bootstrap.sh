@@ -2,7 +2,8 @@
 
 readonly PROGNAME=$(basename $0)
 readonly PROGDIR="$( cd "$(dirname "$0")" ; pwd -P )"
-cd "$(PROGDIR)"
+echo "${PROGDIR}"
+cd "${PROGDIR}"
 
 git pull origin master
 git submodule update --init --recursive
