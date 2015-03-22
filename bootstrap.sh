@@ -1,8 +1,8 @@
 #!/bin/sh
 
-readonly SCRIPT=$(readlink -f "$0")
+readonly SCRIPT=$(readlink -f "$1")
 readonly SCRIPT_PATH=$(dirname "$SCRIPT")
-echo "me: ${0}"
+echo "me: ${1}"
 echo "script path: ${SCRIPT_PATH}"
 cd "${SCRIPT_PATH}"
 
